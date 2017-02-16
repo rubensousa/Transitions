@@ -6,5 +6,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/curve_transition</item>
+        <item name="android:windowSharedElementExitTransition">@transition/curve_transition</item>
     </style>
 </resources>

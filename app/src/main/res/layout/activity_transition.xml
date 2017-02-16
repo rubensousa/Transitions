@@ -20,18 +20,11 @@
 
             <View
                 android:id="@+id/circleView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
                 android:layout_gravity="center"
                 android:background="@drawable/circle"
                 android:transitionName="@string/transition_view" />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/cardview_dark_background"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
