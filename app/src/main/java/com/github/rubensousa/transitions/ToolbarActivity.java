@@ -58,6 +58,7 @@ public class ToolbarActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         nestedScrollView.animate().translationY(nestedScrollView.getHeight() / 3)
+                .alpha(0f)
                 .setInterpolator(new AccelerateInterpolator()).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
