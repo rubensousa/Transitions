@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && launchedActivity) {
             startRippleTransitionUnreveal();
+            launchedActivity = false;
         }
     }
 
