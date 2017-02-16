@@ -23,7 +23,8 @@
             android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/circle" />
+            android:background="@drawable/circle"
+            android:transitionName="@string/transition_view" />
 
         <View
             android:id="@+id/titleView"

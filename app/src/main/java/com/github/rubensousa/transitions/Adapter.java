@@ -1,7 +1,6 @@
 package com.github.rubensousa.transitions;
 
-import android.animation.AnimatorSet;
-import android.animation.ValueAnimator;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,12 @@ import com.github.rubensousa.transitions.utils.ExpandAnimation;
 
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+
+    private OnClickListener listener;
+
+    public Adapter(OnClickListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,6 +45,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             itemView.setOnClickListener(this);
             expandView = itemView.findViewById(R.id.expandView);
             expandableView = itemView.findViewById(R.id.expandableView);
+            itemView.findViewById(R.id.circleView).setOnClickListener(this);
         }
 
         public void bind() {
@@ -53,6 +59,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
+            if (v.getId() == R.id.circleView) {
+                if (listener != null) {
+                    listener.onItemClick(v);
+                }
+            } else {
+                expandOrCollapse();
+            }
+        }
+
+        private void expandOrCollapse() {
             int expandedHeight = itemView.getResources()
                     .getDimensionPixelOffset(R.dimen.card_expanded_height);
             int defaultHeight = itemView.getResources()
@@ -73,5 +89,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             expandableView.animate().alpha(expanded ? 0.0f : 1.0f).setStartDelay(75);
             expanded = !expanded;
         }
+    }
+
+    public interface OnClickListener {
+        void onItemClick(View sharedView);
     }
 }

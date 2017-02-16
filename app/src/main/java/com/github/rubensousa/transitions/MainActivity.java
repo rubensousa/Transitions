@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +21,7 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.github.rubensousa.transitions.utils.TransitionUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Adapter.OnClickListener {
 
     private View rippleView;
     private FloatingActionButton fab;
@@ -93,6 +94,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onItemClick(View sharedView) {
+        Intent intent = new Intent(this, TransitionActivity.class);
+        Pair<View, String> pair = Pair.create(sharedView, getString(R.string.transition_view));
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, pair);
+        ActivityCompat.startActivity(this, intent, options.toBundle());
+    }
+
     private void startActivity() {
         ActivityCompat.startActivity(this, new Intent(this, ToolbarActivity.class),
                 ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
@@ -107,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(new Adapter());
+        recyclerView.setAdapter(new Adapter(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
