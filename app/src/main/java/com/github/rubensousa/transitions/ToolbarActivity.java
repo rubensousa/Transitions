@@ -40,9 +40,9 @@ public class ToolbarActivity extends AppCompatActivity implements AppBarLayout.O
                                 appbar.addOnOffsetChangedListener(ToolbarActivity.this);
                                 nestedScrollView.getViewTreeObserver()
                                         .removeOnGlobalLayoutListener(this);
-                                nestedScrollView.animate().setStartDelay(300).alpha(1f);
+                                nestedScrollView.animate().setStartDelay(400).alpha(1f);
                                 nestedScrollView.setTranslationY(nestedScrollView.getHeight() / 3);
-                                nestedScrollView.animate().setStartDelay(300).translationY(0)
+                                nestedScrollView.animate().setStartDelay(400).translationY(0)
                                         .setInterpolator(new AccelerateDecelerateInterpolator());
                             }
                         }

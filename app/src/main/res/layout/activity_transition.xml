@@ -35,9 +35,48 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <View
+                android:layout_width="180dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/cardview_dark_background" />
+
+            <View
+                android:layout_width="140dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/cardview_dark_background" />
+
+            <View
+                android:layout_width="180dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorEmpty" />
+
+            <View
+                android:layout_width="140dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorEmpty" />
+
+            <View
+                android:layout_width="180dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/cardview_dark_background" />
+
+            <View
+                android:layout_width="140dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/cardview_dark_background" />
+        </LinearLayout>
 
 
     </android.support.v4.widget.NestedScrollView>
