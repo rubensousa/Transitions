@@ -13,20 +13,23 @@
     <RelativeLayout
         android:id="@+id/expandView"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:orientation="horizontal"
-        android:padding="12dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <View
             android:id="@+id/circleView"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/circle" />
 
         <View
             android:id="@+id/titleView"
             android:layout_width="180dp"
             android:layout_height="10dp"
+            android:layout_alignTop="@id/circleView"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
@@ -43,6 +46,82 @@
             android:layout_gravity="bottom"
             android:layout_marginBottom="4dp"
             android:background="@color/colorPrimary" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/circleView"
+            android:layout_marginTop="12dp"
+            android:background="@color/colorEmpty" />
+
+        <LinearLayout
+            android:id="@+id/expandableView"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:layout_below="@+id/circleView"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="12dp"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/empty_rectangle" />
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/empty_rectangle" />
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/empty_rectangle" />
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/empty_rectangle" />
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+            <View
+                android:layout_width="180dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorEmpty" />
+
+            <View
+                android:layout_width="140dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorEmpty" />
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 

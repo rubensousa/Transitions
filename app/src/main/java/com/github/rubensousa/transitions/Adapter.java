@@ -32,12 +32,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         View expandView;
+        View expandableView;
         boolean expanded;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             expandView = itemView.findViewById(R.id.expandView);
+            expandableView = itemView.findViewById(R.id.expandableView);
         }
 
         public void bind() {
@@ -46,6 +48,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     itemView.getResources().getDimensionPixelOffset(R.dimen.card_expanded_height)
                     : itemView.getResources().getDimensionPixelOffset(R.dimen.card_default_height);
             expandView.setLayoutParams(params);
+            expandableView.setAlpha(expanded ? 1.0f : 0.0f);
         }
 
         @Override
@@ -64,8 +67,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             ExpandAnimation expandAnimation = new ExpandAnimation(expandView, defaultHeight,
                     expandedHeight);
             expandAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-            expandAnimation.setDuration(300);
+            expandAnimation.setDuration(375);
             expandAnimation.start();
+
+            expandableView.animate().alpha(expanded ? 0.0f : 1.0f).setStartDelay(75);
             expanded = !expanded;
         }
     }

@@ -8,5 +8,5 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="card_default_height">72dp</dimen>
-    <dimen name="card_expanded_height">240dp</dimen>
+    <dimen name="card_expanded_height">282dp</dimen>
 </resources>
