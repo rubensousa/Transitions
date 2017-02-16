@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setVisibility(View.INVISIBLE);
         Animator animator = ViewAnimationUtils.createCircularReveal(rippleView,
                 (int) fab.getX() + fab.getWidth() / 2,
-                (int) fab.getY(), 0, TransitionUtils.getViewRadius(rippleView));
+                (int) fab.getY(), fab.getWidth() / 2, TransitionUtils.getViewRadius(rippleView) * 2);
         rippleView.setVisibility(View.VISIBLE);
         animator.setInterpolator(new AccelerateInterpolator());
         animator.setDuration(400);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private void startRippleTransitionUnreveal() {
         Animator animator = ViewAnimationUtils.createCircularReveal(rippleView,
                 (int) fab.getX() + fab.getWidth() / 2,
-                (int) fab.getY(), TransitionUtils.getViewRadius(rippleView), 0);
+                (int) fab.getY(), TransitionUtils.getViewRadius(rippleView) * 2, fab.getWidth() / 2);
         rippleView.setVisibility(View.VISIBLE);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.setDuration(400);
