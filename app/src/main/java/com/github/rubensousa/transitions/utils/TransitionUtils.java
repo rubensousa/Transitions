@@ -1,4 +1,4 @@
-package com.github.rubensousa.transitions;
+package com.github.rubensousa.transitions.utils;
 
 import android.os.Build;
 import android.view.View;
