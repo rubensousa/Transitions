@@ -23,6 +23,7 @@ import com.github.rubensousa.transitions.utils.TransitionUtils;
 
 public class MainActivity extends AppCompatActivity implements Adapter.OnClickListener {
 
+    private RecyclerView recyclerView;
     private View rippleView;
     private FloatingActionButton fab;
     private boolean launchedActivity;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupTransitions();
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         setupRecyclerView();
         rippleView = findViewById(R.id.rippleView);
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -58,6 +60,12 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
         animator.setDuration(400);
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                recyclerView.animate().alpha(0f);
+            }
+
+            @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 startActivity();
@@ -75,6 +83,12 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
         animator.setInterpolator(new DecelerateInterpolator());
         animator.setDuration(400);
         animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                recyclerView.animate().alpha(1f);
+            }
+
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
@@ -116,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
     }
 
     private void setupRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setAdapter(new Adapter(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
