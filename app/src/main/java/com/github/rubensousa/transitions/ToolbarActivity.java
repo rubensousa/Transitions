@@ -1,7 +1,5 @@
 package com.github.rubensousa.transitions;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.transition.Fade;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 
 
 public class ToolbarActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
@@ -54,34 +51,6 @@ public class ToolbarActivity extends AppCompatActivity implements AppBarLayout.O
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(new Fade());
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        AppBarLayout.LayoutParams layoutParams
-                = (AppBarLayout.LayoutParams)
-                collapsingToolbarLayout.getLayoutParams();
-        layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL);
-        collapsingToolbarLayout.setLayoutParams(layoutParams);
-
-        nestedScrollView.animate()
-                .translationY(nestedScrollView.getHeight() / 3)
-                .setDuration(200)
-                .alpha(0f)
-                .setInterpolator(new AccelerateInterpolator())
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        super.onAnimationStart(animation);
-                        appbar.setExpanded(false);
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        ToolbarActivity.super.onBackPressed();
-                    }
-                });
     }
 
     @Override
