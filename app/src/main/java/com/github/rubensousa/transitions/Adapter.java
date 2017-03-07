@@ -1,6 +1,7 @@
 package com.github.rubensousa.transitions;
 
 
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind();
+        holder.bind(position);
     }
 
     @Override
@@ -36,6 +37,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        View circleView;
         View expandView;
         View expandableView;
         boolean expanded;
@@ -45,10 +47,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             itemView.setOnClickListener(this);
             expandView = itemView.findViewById(R.id.expandView);
             expandableView = itemView.findViewById(R.id.expandableView);
-            itemView.findViewById(R.id.circleView).setOnClickListener(this);
+            circleView = itemView.findViewById(R.id.circleView);
+            circleView.setOnClickListener(this);
         }
 
-        public void bind() {
+        public void bind(int position) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                circleView.setTransitionName(position + "");
+                circleView.invalidate();
+            }
             ViewGroup.LayoutParams params = expandView.getLayoutParams();
             params.height = expanded ?
                     itemView.getResources().getDimensionPixelOffset(R.dimen.card_expanded_height)
@@ -61,7 +68,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         public void onClick(View v) {
             if (v.getId() == R.id.circleView) {
                 if (listener != null) {
-                    listener.onItemClick(v);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        listener.onItemClick(v, v.getTransitionName());
+                    } else {
+                        listener.onItemClick(v, "");
+                    }
                 }
             } else {
                 expandOrCollapse();
@@ -92,6 +103,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     public interface OnClickListener {
-        void onItemClick(View sharedView);
+        void onItemClick(View sharedView, String transitionName);
     }
 }

@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.SharedElementCallback;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,9 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.github.rubensousa.transitions.utils.TransitionUtils;
+
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Adapter.OnClickListener {
 
@@ -44,6 +48,21 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
                     startRippleTransitionReveal();
                 } else {
                     startActivity();
+                }
+            }
+        });
+
+        // Workaround for orientation change issue
+        setExitSharedElementCallback(new SharedElementCallback() {
+            @Override
+            public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+                super.onMapSharedElements(names, sharedElements);
+                if (sharedElements.isEmpty()) {
+                    int position = Integer.parseInt(names.get(0));
+                    View view = recyclerView.getLayoutManager().findViewByPosition(position);
+                    if (view != null) {
+                        sharedElements.put(names.get(0), view.findViewById(R.id.circleView));
+                    }
                 }
             }
         });
@@ -109,12 +128,17 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
     }
 
     @Override
-    public void onItemClick(View sharedView) {
+    public void onItemClick(View sharedView, String transitionName) {
         Intent intent = new Intent(this, TransitionActivity.class);
-        Pair<View, String> pair = Pair.create(sharedView, getString(R.string.transition_view));
+        intent.putExtra("transition", transitionName);
         ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(this, pair);
+                makeSceneTransitionAnimation(this, sharedView, transitionName);
         ActivityCompat.startActivity(this, intent, options.toBundle());
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
     }
 
     private void startActivity() {

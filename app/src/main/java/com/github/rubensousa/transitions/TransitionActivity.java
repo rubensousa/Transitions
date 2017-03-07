@@ -1,9 +1,12 @@
 package com.github.rubensousa.transitions;
 
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.SharedElementCallback;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +17,9 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.github.rubensousa.transitions.utils.TransitionUtils;
+
+import java.util.List;
+import java.util.Map;
 
 public class TransitionActivity extends AppCompatActivity {
 
@@ -26,7 +32,11 @@ public class TransitionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transition);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            View circleView = findViewById(R.id.circleView);
+            Intent intent = getIntent();
+            circleView.setTransitionName(intent.getStringExtra("transition"));
             Transition transition = getWindow().getSharedElementEnterTransition();
             transition.addListener(new Transition.TransitionListener() {
                 @Override
@@ -75,6 +85,12 @@ public class TransitionActivity extends AppCompatActivity {
                 }, 300);
             }
         }
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+        supportPostponeEnterTransition();
     }
 
     @Override

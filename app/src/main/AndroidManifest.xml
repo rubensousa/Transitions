@@ -19,7 +19,9 @@
         </activity>
 
         <activity android:name=".ToolbarActivity" />
-        <activity android:name=".TransitionActivity" />
+        <activity
+            android:name=".TransitionActivity"
+            android:theme="@style/AppTheme.NoActionBar.Detail" />
     </application>
 
 </manifest>
