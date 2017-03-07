@@ -53,7 +53,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         public void bind(int position) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                circleView.setTransitionName(position + "");
+                circleView.setTransitionName("transition" + position);
                 circleView.invalidate();
             }
             ViewGroup.LayoutParams params = expandView.getLayoutParams();
@@ -69,9 +69,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             if (v.getId() == R.id.circleView) {
                 if (listener != null) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        listener.onItemClick(v, v.getTransitionName());
+                        listener.onItemClick(v, v.getTransitionName(), getAdapterPosition());
                     } else {
-                        listener.onItemClick(v, "");
+                        listener.onItemClick(v, "", getAdapterPosition());
                     }
                 }
             } else {
@@ -103,6 +103,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     public interface OnClickListener {
-        void onItemClick(View sharedView, String transitionName);
+        void onItemClick(View sharedView, String transitionName, int position);
     }
 }

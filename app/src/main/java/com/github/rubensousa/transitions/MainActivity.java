@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
     private View rippleView;
     private FloatingActionButton fab;
     private boolean launchedActivity;
+    private int viewPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +54,28 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
         });
 
         // Workaround for orientation change issue
+        if (savedInstanceState != null) {
+            viewPosition = savedInstanceState.getInt("position");
+        }
+
         setExitSharedElementCallback(new SharedElementCallback() {
             @Override
             public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
                 super.onMapSharedElements(names, sharedElements);
                 if (sharedElements.isEmpty()) {
-                    int position = Integer.parseInt(names.get(0));
-                    View view = recyclerView.getLayoutManager().findViewByPosition(position);
+                    View view = recyclerView.getLayoutManager().findViewByPosition(viewPosition);
                     if (view != null) {
                         sharedElements.put(names.get(0), view.findViewById(R.id.circleView));
                     }
                 }
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("position", viewPosition);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -128,7 +138,8 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
     }
 
     @Override
-    public void onItemClick(View sharedView, String transitionName) {
+    public void onItemClick(View sharedView, String transitionName, int position) {
+        viewPosition = position;
         Intent intent = new Intent(this, TransitionActivity.class);
         intent.putExtra("transition", transitionName);
         ActivityOptionsCompat options = ActivityOptionsCompat.
